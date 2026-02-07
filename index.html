@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desarrollo VR con Godot y Unity | Guía Interactiva</title>
+    <meta name="description" content="Aprende a desarrollar Realidad Virtual con Godot y Unity. Conceptos básicos, tutoriales, comparativas, recursos y casos de éxito.">
+    
+    <!-- Fuentes de Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+
+    <!-- ================================================================= -->
+    <!-- INICIO DE style.css                                               -->
+    <!-- ================================================================= -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Scroll Progress -->
+    <div class="scroll-progress" id="progressBar"></div>
+
+    <!-- Skip Navigation Link -->
+    <a href="#main-content" class="sr-only">Saltar al contenido principal</a>
+
+    <!-- Header -->
+    <header id="header">
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">
+                    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+                    VR<span>Dev</span>
+                </a>
+
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="#conceptos" onclick="closeMenu()">Conceptos</a></li>
+                    <li><a href="#empezar" onclick="closeMenu()">Empezar</a></li>
+                    <li><a href="#tips" onclick="closeMenu()">Tips</a></li>
+                    <li><a href="#casos" onclick="closeMenu()">Casos</a></li>
+                    <li><a href="#recursos" onclick="closeMenu()">Recursos</a></li>
+                    <!-- Theme Toggle Desktop -->
+                    <li>
+                        <button class="theme-toggle" id="themeToggle" aria-label="Cambiar tema">
+                            <svg id="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                        </button>
+                    </li>
+                </ul>
+
+                <button class="hamburger" id="hamburger" aria-label="Abrir menú">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <!-- Hero Section -->
+        <section class="hero container">
+            <div class="hero-bg" id="heroBg"></div>
+            <div class="hero-content">
+                <h1>Crea Mundos <br><span>Inmersivos</span></h1>
+                <p>Domina el desarrollo de Realidad Virtual utilizando Unity o Godot. Desde los conceptos básicos de <span data-tooltip="6 Grados de Libertad: Movimiento en X, Y, Z y rotación en cada eje">6DOF</span> hasta la optimización avanzada.</p>
+                <a href="#empezar" class="btn btn-primary">Empezar Tutorial</a>
+            </div>
+            <div class="hero-visual">
+                <svg class="vr-glasses" viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" style="stop-color:var(--vr-cyan);stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:var(--vr-purple);stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                    <path d="M20,70 Q20,30 60,30 L140,30 Q180,30 180,70 L180,90 Q180,110 160,110 L40,110 Q20,110 20,90 Z" fill="none" stroke="url(#grad1)" stroke-width="4" />
+                    <rect x="30" y="45" width="60" height="40" rx="10" fill="rgba(0,210,255,0.2)" stroke="var(--vr-cyan)" stroke-width="2" />
+                    <rect x="110" y="45" width="60" height="40" rx="10" fill="rgba(138,43,226,0.2)" stroke="var(--vr-purple)" stroke-width="2" />
+                    <path d="M40,55 L60,55 M40,65 L50,65" stroke="white" stroke-width="2" opacity="0.5"/>
+                </svg>
+            </div>
+        </section>
+
+        <!-- Conceptos Básicos -->
+        <section id="conceptos" class="section container reveal">
+            <h2 class="section-title">Conceptos Básicos</h2>
+            <div class="concepts-grid">
+                <div class="scene-3d">
+                    <div class="cube">
+                        <div class="cube__face cube__face--front">360°</div>
+                        <div class="cube__face cube__face--back">VR</div>
+                        <div class="cube__face cube__face--right">X</div>
+                        <div class="cube__face cube__face--left">Y</div>
+                        <div class="cube__face cube__face--top">Z</div>
+                        <div class="cube__face cube__face--bottom"></div>
+                    </div>
+                </div>
+
+                <div class="comparison-wrapper">
+                    <h3 style="margin-bottom: 20px;">¿Qué motor elegir?</h3>
+                    <div class="toggle-container">
+                        <div class="toggle-btn active" data-target="godot-desc" onclick="toggleComparison('godot')">Godot</div>
+                        <div class="toggle-btn" data-target="unity-desc" onclick="toggleComparison('unity')">Unity</div>
+                    </div>
+
+                    <div id="comparison-content">
+                        <p id="desc-text" style="margin-bottom: 20px;">Godot es ligero, open source y excelente para 2D y 3D independiente.</p>
+                        <table class="comparison-table">
+                            <tbody id="comparison-table-body">
+                                <tr><th>Costo</th><td>Gratis (MIT)</td></tr>
+                                <tr><th>Idioma</th><td>GDScript (Similar a Python)</td></tr>
+                                <tr><th>VR Support</th><td>Nativo (OpenXR)</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Cómo Empezar -->
+        <section id="empezar" class="section container reveal">
+            <h2 class="section-title">Cómo Empezar</h2>
+            
+            <div class="tabs-container">
+                <div class="tabs-header">
+                    <button class="tab-btn active" data-tab="tab-godot">Godot 4.x</button>
+                    <button class="tab-btn" data-tab="tab-unity">Unity 2022+</button>
+                </div>
+
+                <div id="tab-godot" class="tab-content active">
+                    <h3>Ruta de aprendizaje Godot</h3>
+                    <div style="margin: 20px 0;">
+                        <div class="checklist-item"><input type="checkbox"> <span>Descargar e instalar Godot Engine</span></div>
+                        <div class="checklist-item"><input type="checkbox"> <span>Configurar plugin OpenXR</span></div>
+                        <div class="checklist-item"><input type="checkbox"> <span>Primer script de movimiento (XR Controller)</span></div>
+                        <div class="checklist-item"><input type="checkbox"> <span>Exportar a Quest/PCVR</span></div>
+                    </div>
+                    <a href="#" class="download-btn" onclick="simulateDownload(event, 'Checklist_Godot.pdf')">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                        Descargar Checklist PDF
+                    </a>
+                </div>
+
+                <div id="tab-unity" class="tab-content">
+                    <h3>Ruta de aprendizaje Unity</h3>
+                    <div style="margin: 20px 0;">
+                        <div class="checklist-item"><input type="checkbox"> <span>Instalar Unity Hub y Editor</span></div>
+                        <div class="checklist-item"><input type="checkbox"> <span>Importar XR Interaction Toolkit</span></div>
+                        <div class="checklist-item"><input type="checkbox"> <span>Crear Action-based Controller</span></div>
+                        <div class="checklist-item"><input type="checkbox"> <span>Optimización para GPU móvil</span></div>
+                    </div>
+                    <a href="#" class="download-btn" onclick="simulateDownload(event, 'Checklist_Unity.pdf')">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                        Descargar Checklist PDF
+                    </a>
+                </div>
+            </div>
+
+            <div class="flowchart-container">
+                <svg width="600" height="150" viewBox="0 0 600 150">
+                    <line x1="50" y1="75" x2="550" y2="75" stroke="var(--vr-cyan)" stroke-width="2" class="path-anim" />
+                    <circle cx="50" cy="75" r="20" fill="var(--vr-purple)" />
+                    <text x="50" y="80" text-anchor="middle" fill="white" font-size="12">Idea</text>
+                    
+                    <circle cx="200" cy="75" r="20" fill="var(--vr-purple)" />
+                    <text x="200" y="80" text-anchor="middle" fill="white" font-size="12">Prototype</text>
+
+                    <circle cx="350" cy="75" r="20" fill="var(--vr-purple)" />
+                    <text x="350" y="80" text-anchor="middle" fill="white" font-size="12">Dev</text>
+
+                    <circle cx="500" cy="75" r="20" fill="var(--vr-cyan)" />
+                    <text x="500" y="80" text-anchor="middle" fill="black" font-weight="bold" font-size="12">Launch</text>
+                </svg>
+            </div>
+        </section>
+
+        <!-- Tips Profesionales -->
+        <section id="tips" class="section container reveal">
+            <h2 class="section-title">Tips Profesionales</h2>
+            
+            <div class="filter-controls">
+                <button class="btn btn-outline" onclick="filterTips('all', this)">Todos</button>
+                <button class="btn btn-outline" onclick="filterTips('principiante', this)">Principiante</button>
+                <button class="btn btn-outline" onclick="filterTips('intermedio', this)">Intermedio</button>
+                <button class="btn btn-outline" onclick="filterTips('avanzado', this)">Avanzado</button>
+            </div>
+
+            <div class="tips-grid" id="tipsGrid">
+                <div class="tip-card" data-level="principiante">
+                    <span class="tip-level">Principiante</span>
+                    <h3>Estabilidad FPS</h3>
+                    <p>Mantén 72/90 FPS constantes. El lag en VR causa mareo inmediato. Usa el Profiler desde el día 1.</p>
+                </div>
+                <div class="tip-card" data-level="intermedio">
+                    <span class="tip-level">Intermedio</span>
+                    <h3>Locomotion</h3>
+                    <p>Evita el movimiento brusco. Usa Teletransporte para principiantes o Smooth Locomotion con "vignette" para expertos.</p>
+                </div>
+                <div class="tip-card" data-level="avanzado">
+                    <span class="tip-level">Avanzado</span>
+                    <h3>Baked Lighting</h3>
+                    <p>En VR móvil, usa lighting calculado (Lightmap) y evita luces dinámicas costosas en tiempo real.</p>
+                </div>
+                <div class="tip-card" data-level="principiante">
+                    <span class="tip-level">Principiante</span>
+                    <h3>Escala del Mundo</h3>
+                    <p>Asegúrate de que 1 unidad en tu motor = 1 metro en la vida real. Si la escala es incorrecta, el usuario sentirá vértigo.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Casos Reales -->
+        <section id="casos" class="section container reveal">
+            <h2 class="section-title">Casos Reales</h2>
+            
+            <div class="carousel-wrapper">
+                <div class="carousel-track" id="track">
+                    <div class="carousel-slide">
+                        <img src="C:\Users\Admin\Desktop\Proyecto_Aplicaciones_Web_Javier_Garcia\images\1031-1200x500.jpg" alt="Educación VR">
+                        <div class="carousel-content">
+                            <h3>Educación Virtual</h3>
+                            <p>Laboratorios de química seguros simulados en Unity.</p>
+                            <button class="btn btn-primary" onclick="showDemoMsg('Lab de Química')">Ver Demo</button>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="C:\Users\Admin\Desktop\Proyecto_Aplicaciones_Web_Javier_Garcia\images\937-1200x500.jpg" alt="Salud VR">
+                        <div class="carousel-content">
+                            <h3>Terapia de Fobia</h3>
+                            <p>Tratamiento de agorafobia controlado en Godot.</p>
+                            <button class="btn btn-primary" onclick="showDemoMsg('Terapia VR')">Ver Demo</button>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="C:\Users\Admin\Desktop\Proyecto_Aplicaciones_Web_Javier_Garcia\images\139-1200x500.jpg" alt="Industria VR">
+                        <div class="carousel-content">
+                            <h3>Entrenamiento Industrial</h3>
+                            <p>Simulación de reparación de maquinaria pesada.</p>
+                            <button class="btn btn-primary" onclick="showDemoMsg('Entrenamiento')">Ver Demo</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="carousel-nav">
+                    <button class="carousel-btn" onclick="moveCarousel(-1)">&#10094;</button>
+                    <button class="carousel-btn" onclick="moveCarousel(1)">&#10095;</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de Recursos Gratuitos (NUEVA) -->
+        <section id="recursos" class="section container reveal">
+            <h2 class="section-title">Recursos Gratuitos</h2>
+            <p style="text-align: center; margin-bottom: 30px; color: var(--vr-text-muted);">
+                Seleccionamos los mejores enlaces para profundizar en tu aprendizaje de VR.
+            </p>
+
+            <div class="resources-grid">
+                
+                <!-- Recurso 1: Documentación Oficial Godot -->
+                <a href="https://docs.godotengine.org/en/stable/tutorials/xr/index.html" target="_blank" rel="noopener noreferrer" class="resource-card docs">
+                    <svg class="resource-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                    <h3>Godot Docs XR</h3>
+                    <p>Documentación oficial sobre OpenXR, controladores y configuración de escenas VR en Godot 4.</p>
+                    <span class="resource-btn">Leer Docs &rarr;</span>
+                </a>
+
+                <!-- Recurso 2: YouTube Unity VR -->
+                <a href="https://www.youtube.com/c/ValemVR" target="_blank" rel="noopener noreferrer" class="resource-card youtube">
+                    <svg class="resource-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>
+                    <h3>Valem VR (Unity)</h3>
+                    <p>Uno de los mejores canales de YouTube dedicado exclusivamente a tutoriales de VR en Unity.</p>
+                    <span class="resource-btn">Ver Cursos &rarr;</span>
+                </a>
+
+                <!-- Recurso 3: GitHub Repos -->
+                <a href="https://github.com/topics/virtual-reality" target="_blank" rel="noopener noreferrer" class="resource-card github">
+                    <svg class="resource-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                    <h3>GitHub VR Topics</h3>
+                    <p>Explora cientos de repositorios open-source, scripts y ejemplos de código VR.</p>
+                    <span class="resource-btn">Explorar &rarr;</span>
+                </a>
+
+                <!-- Recurso 4: Documentación Unity -->
+                <a href="https://docs.unity3d.com/Manual/xr.html" target="_blank" rel="noopener noreferrer" class="resource-card docs">
+                    <svg class="resource-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+                    <h3>Unity XR Manual</h3>
+                    <p>Guía oficial de Unity sobre el XR Interaction Toolkit y compatibilidad de dispositivos.</p>
+                    <span class="resource-btn">Leer Manual &rarr;</span>
+                </a>
+
+                <!-- Recurso 5: Comunidad Godot -->
+                <a href="https://discord.gg/godot" target="_blank" rel="noopener noreferrer" class="resource-card youtube">
+                     <svg class="resource-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="12" r="1"></circle><circle cx="15" cy="12" r="1"></circle><path d="M7.5 7.5c3.5-1 5.5-1 9 0"></path><path d="M7 16.5c3.5 1 6.5 1 10 0"></path><path d="M15.5 17.5l0 .01"></path><path d="M8.5 17.5l0 .01"></path><path d="M6 13.5c3 2 9 2 12 0"></path></svg>
+                    <h3>Discord Godot</h3>
+                    <p>Únete al servidor oficial de Discord. El canal #vr es muy activo y útil.</p>
+                    <span class="resource-btn">Unirse &rarr;</span>
+                </a>
+
+                <!-- Recurso 6: Cursos Gratuitos -->
+                <a href="https://learn.unity.com/" target="_blank" rel="noopener noreferrer" class="resource-card docs">
+                    <svg class="resource-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                    <h3>Unity Learn</h3>
+                    <p>Plataforma oficial de aprendizaje con cursos gratuitos sobre desarrollo de juegos y VR.</p>
+                    <span class="resource-btn">Empezar &rarr;</span>
+                </a>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <h3>VR Dev Newsletter</h3>
+            <p style="margin-bottom: 20px; color: var(--vr-text-muted);">Recibe las últimas noticias de desarrollo XR.</p>
+            <form class="footer-form" id="newsletterForm">
+                <input type="email" placeholder="tu@email.com" aria-label="Correo electrónico" required>
+                <button type="submit" class="btn btn-primary">Suscribirse</button>
+            </form>
+
+            <div class="social-icons">
+                <a href="#" aria-label="Twitter"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg></a>
+                <a href="#" aria-label="GitHub"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
+            </div>
+            <p style="color: var(--vr-text-muted); font-size: 0.9rem;">&copy; 2023 VR Dev Guide. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Back to Top -->
+    <button id="backToTop" aria-label="Volver arriba">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"></polyline></svg>
+    </button>
+
+    <!-- ================================================================= -->
+    <!-- INICIO DE script.js                                              -->
+    <!-- ================================================================= -->
+    <script src="script.js"></script>
+</body>
+</html>
